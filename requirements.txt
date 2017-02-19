@@ -1,0 +1,4 @@
+Flask
+nvm install 6
+npm install -g 
+npm install
