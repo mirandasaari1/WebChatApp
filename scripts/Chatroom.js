@@ -1,21 +1,32 @@
 import React, {Component} from 'react';
 import * as SocketIO from 'socket.io-client';
+//import models
 
 var socket=SocketIO.connect();
 
 //userList
 var UsersList = React.createClass({
   render() {
+    // var inlineStyles = {
+    //   background: '#6D84B4',
+    //   border: '1px solid rgba(67, 106, 187, 0.76)',
+    //   color: 'white',
+    //   textalign: 'center',
+    //   height: '28px'
+    // };
       return (
-          <div className='users'>
+          //<div className='users'>
+          <div className='msg-wgt-header'>
+          
               <h3> Online Users: {this.props.users.length} </h3>
               <ul>
                   {
                       this.props.users.map((user, i) => {
                           return (
                               <li key={i}>
-                                  {user}
+                              <a href="#">{user}</a>
                               </li>
+                                // {user} goes inside li
                           );
                       })
                   }
@@ -25,14 +36,30 @@ var UsersList = React.createClass({
   }
 })
 
+// FB.getLoginStatus((response) => {
+// if (response.status == 'connected') {
+// Socket.emit('new number', {
+// 'facebook_user_token':
+// response.authResponse.accessToken,
+// 'number': random,
+// });
+// }
+// });
+ 
 //Message 
 var Message = React.createClass({
   render() {
       return (
-          <div className="message">
-              <strong>{this.props.user}: </strong> 
-              <span>{this.props.text}</span>        
+          // <div className="message">
+           <div className="msg-row-container">
+            <div className="msg-row">
+            <span className="user-label">
+            <a href="#" className="chat-username">{this.props.user}</a>
+              </span><br/>
+              <span>{this.props.text}</span>  
+              </div>
           </div>
+          // <strong>{this.props.user}: </strong>goes a tag
       );
   }
 })
@@ -40,8 +67,14 @@ var Message = React.createClass({
 //and MessageList
 var MessageList = React.createClass({
   render() {
+    //added for css
+    var inlineStyles = {
+      height: '300px',
+      overflowY: 'scroll'
+    };
       return (
-          <div className='messages'>
+         //<div className='messages'>
+         <div style={inlineStyles}>
               <h2> Conversation: </h2>
               {
                   this.props.messages.map((message, i) => {
@@ -74,48 +107,22 @@ var MessageForm = React.createClass({
       this.props.onMessageSubmit(message); 
       this.setState({ text: '' });
   },
-//bot checks the message
-  checkMessage(e){
-    e.preventDefault();
-    var recievedMessage = this.state.text;
-    var botResponse;
-    if(recievedMessage.startsWith("!!")){
-        if(recievedMessage.startsWith("!!about")){
-            botResponse="Hi friends! welcome to the chat room, share your thoughts with your friends!";
-        }
-        else if(recievedMessage.startsWith("!!help")){
-            botResponse="Try: !!about !!help !!joke !!funfact";
-        }
-        else if(recievedMessage.startsWith("!!say")){
-            botResponse="'message.substring(6)";
-        }
-        else if(recievedMessage.startsWith("!!joke")){
-           botResponse="'you have the nicest syntax ive ever seen";
-        }
-        else if(recievedMessage.startsWith("!!funfact")){
-           botResponse="bananas are curved because they grow towards the sun";
-        }
-        else if(recievedMessage.startsWith("!!")){
-           botResponse="Sorry! don't know this command, try !!help";
-        }
-    }
-    var message = {
-      user : 'Chatbot',
-      text : botResponse
-    }
-    this.props.onBotMessage(message); 
-    this.setState({ text: '' });
-  },
 
   changeHandler(e) {
       this.setState({ text : e.target.value });
   },
-
+  
+  _initialize(data){
+    var{users,name} = data;
+    this.setState({users, user: name});
+  },
+  
   render() {
       return(
-          <div className='message_form'>
+         // <div className='message_form'>
+          <div className='msg-wgt-footer'>
               <h3>Write New Message</h3>
-              <form onSubmit={this.handleSubmit, this.checkMessage}>
+              <form onSubmit={this.handleSubmit}>
                   <input
                       onChange={this.changeHandler}
                       value={this.state.text}
@@ -135,8 +142,9 @@ var ChatApp = React.createClass({
   },
 
   componentDidMount() {
+      //console.log('hi')
       socket.on('init', this._initialize);
-      socket.on('send:message', this._messageRecieve);
+      socket.on('send:message', (d) => {this._messageRecieve(d); });
       socket.on('user:join', this._userJoined);
       socket.on('user:left', this._userLeft);
      // socket.on('change:name', this._userChangedName);
@@ -148,7 +156,9 @@ var ChatApp = React.createClass({
   },
 
   _messageRecieve(message) {
+    //console.log('got a message');
       var {messages} = this.state;
+      console.log(message);
       messages.push(message);
       this.setState({messages});
   },
@@ -183,16 +193,19 @@ var ChatApp = React.createClass({
       this.setState({messages});
       socket.emit('send:message', message);
   },
+  
+//database send
+  // handleDatabaseSend(message){
+  //   models.db.session.add(user)
+  //   models.db.session.add(message)
+  //   models.db.session.add(image_url)
+  //   models.db.session.commit()
+  // },
 
    render() {
-  //   const notes = this.props.notes;
-  //   const style = {
-  //   margin: '0.5em',
-  //   paddingLeft: 0,
-  //   listStyle: 'none'
-  // };
       return (
-          <div>
+          //<div>
+          <div className="chat-container">
               <UsersList
                   users={this.state.users}
               />
@@ -201,7 +214,7 @@ var ChatApp = React.createClass({
               />
               <MessageForm
                   onMessageSubmit={this.handleMessageSubmit}
-                  onBotMessage={this.handleMessageSubmit}
+                  //onBotMessage={this.handleMessageSubmit}
                   user = "Mir"
                   //user={this.state.user}
               />
@@ -221,3 +234,4 @@ export class Chatroom extends React.Component{
     );
   }
 }
+
