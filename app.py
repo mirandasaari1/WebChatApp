@@ -62,7 +62,9 @@ def send_message(data):
           #botResponse="bananas are curved because they grow towards the sun";
         elif(data["text"].startswith("!!")):
             server_data={"text":"Sorry! don't know this command, try !!help", "user":"chatbot"};
+        print(server_data)
         socketio.emit('send:message', server_data, broadcast=True)
+        
           #botResponse="Sorry! don't know this command, try !!help";
     #server_data={"text":"hello" + data["user"], "user":"chatbot"};
     # socketio.emit('send:message', server_data, broadcast=True)
