@@ -44,6 +44,7 @@ def send_message(data):
     # print data;
     # print data["text"];
     if(data["text"].startswith("!!")):
+        print("X" * 50)
         if(data["text"].startswith("!!about")):
             server_data={"text":"Hi friends! welcome to the chat room, share your thoughts with your friends!", "user":"chatbot"};
             #botResponse="Hi friends! welcome to the chat room, share your thoughts with your friends!";
