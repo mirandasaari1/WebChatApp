@@ -7,15 +7,7 @@ var socket=SocketIO.connect();
 //userList
 var UsersList = React.createClass({
   render() {
-    // var inlineStyles = {
-    //   background: '#6D84B4',
-    //   border: '1px solid rgba(67, 106, 187, 0.76)',
-    //   color: 'white',
-    //   textalign: 'center',
-    //   height: '28px'
-    // };
       return (
-          //<div className='users'>
           <div className='msg-wgt-header'>
           
               <h3> Online Users: {this.props.users.length} </h3>
@@ -26,7 +18,6 @@ var UsersList = React.createClass({
                               <li key={i}>
                               <a href="#">{user}</a>
                               </li>
-                                // {user} goes inside li
                           );
                       })
                   }
@@ -36,21 +27,11 @@ var UsersList = React.createClass({
   }
 })
 
-// FB.getLoginStatus((response) => {
-// if (response.status == 'connected') {
-// Socket.emit('new number', {
-// 'facebook_user_token':
-// response.authResponse.accessToken,
-// 'number': random,
-// });
-// }
-// });
  
 //Message 
 var Message = React.createClass({
   render() {
       return (
-          // <div className="message">
            <div className="msg-row-container">
             <div className="msg-row">
             <span className="user-label">
@@ -59,7 +40,6 @@ var Message = React.createClass({
               <span>{this.props.text}</span>  
               </div>
           </div>
-          // <strong>{this.props.user}: </strong>goes a tag
       );
   }
 })
@@ -73,7 +53,6 @@ var MessageList = React.createClass({
       overflowY: 'scroll'
     };
       return (
-         //<div className='messages'>
          <div style={inlineStyles}>
               <h2> Conversation: </h2>
               {
@@ -119,7 +98,6 @@ var MessageForm = React.createClass({
   
   render() {
       return(
-         // <div className='message_form'>
           <div className='msg-wgt-footer'>
               <h3>Write New Message</h3>
               <form onSubmit={this.handleSubmit}>
@@ -142,12 +120,10 @@ var ChatApp = React.createClass({
   },
 
   componentDidMount() {
-      //console.log('hi')
       socket.on('init', this._initialize);
       socket.on('send:message', (d) => {this._messageRecieve(d); });
       socket.on('user:join', this._userJoined);
       socket.on('user:left', this._userLeft);
-     // socket.on('change:name', this._userChangedName);
   },
 
   _initialize(data) {
@@ -156,7 +132,6 @@ var ChatApp = React.createClass({
   },
 
   _messageRecieve(message) {
-    //console.log('got a message');
       var {messages} = this.state;
       console.log(message);
       messages.push(message);
@@ -214,7 +189,6 @@ var ChatApp = React.createClass({
               />
               <MessageForm
                   onMessageSubmit={this.handleMessageSubmit}
-                  //onBotMessage={this.handleMessageSubmit}
                   user = "Mir"
                   //user={this.state.user}
               />
@@ -235,3 +209,13 @@ export class Chatroom extends React.Component{
   }
 }
 
+
+// FB.getLoginStatus((response) => {
+//   if (response.status == 'connected') {
+//   socket.emit('new number', {
+//   'facebook_user_token':
+//   response.authResponse.accessToken,
+//   'number': random,
+//   });
+//   }
+// });

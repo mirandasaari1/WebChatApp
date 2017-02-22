@@ -12889,88 +12889,61 @@ var socket = SocketIO.connect();
 var UsersList = _react2.default.createClass({
     displayName: 'UsersList',
     render: function render() {
-        // var inlineStyles = {
-        //   background: '#6D84B4',
-        //   border: '1px solid rgba(67, 106, 187, 0.76)',
-        //   color: 'white',
-        //   textalign: 'center',
-        //   height: '28px'
-        // };
-        return (
-            //<div className='users'>
+        return _react2.default.createElement(
+            'div',
+            { className: 'msg-wgt-header' },
             _react2.default.createElement(
-                'div',
-                { className: 'msg-wgt-header' },
-                _react2.default.createElement(
-                    'h3',
-                    null,
-                    ' Online Users: ',
-                    this.props.users.length,
-                    ' '
-                ),
-                _react2.default.createElement(
-                    'ul',
-                    null,
-                    this.props.users.map(function (user, i) {
-                        return _react2.default.createElement(
-                            'li',
-                            { key: i },
-                            _react2.default.createElement(
-                                'a',
-                                { href: '#' },
-                                user
-                            )
+                'h3',
+                null,
+                ' Online Users: ',
+                this.props.users.length,
+                ' '
+            ),
+            _react2.default.createElement(
+                'ul',
+                null,
+                this.props.users.map(function (user, i) {
+                    return _react2.default.createElement(
+                        'li',
+                        { key: i },
+                        _react2.default.createElement(
+                            'a',
+                            { href: '#' },
+                            user
                         )
-                        // {user} goes inside li
-                        ;
-                    })
-                )
+                    );
+                })
             )
         );
     }
 });
 
-// FB.getLoginStatus((response) => {
-// if (response.status == 'connected') {
-// Socket.emit('new number', {
-// 'facebook_user_token':
-// response.authResponse.accessToken,
-// 'number': random,
-// });
-// }
-// });
-
 //Message 
 var Message = _react2.default.createClass({
     displayName: 'Message',
     render: function render() {
-        return (
-            // <div className="message">
+        return _react2.default.createElement(
+            'div',
+            { className: 'msg-row-container' },
             _react2.default.createElement(
                 'div',
-                { className: 'msg-row-container' },
+                { className: 'msg-row' },
                 _react2.default.createElement(
-                    'div',
-                    { className: 'msg-row' },
+                    'span',
+                    { className: 'user-label' },
                     _react2.default.createElement(
-                        'span',
-                        { className: 'user-label' },
-                        _react2.default.createElement(
-                            'a',
-                            { href: '#', className: 'chat-username' },
-                            this.props.user
-                        )
-                    ),
-                    _react2.default.createElement('br', null),
-                    _react2.default.createElement(
-                        'span',
-                        null,
-                        this.props.text
+                        'a',
+                        { href: '#', className: 'chat-username' },
+                        this.props.user
                     )
+                ),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                    'span',
+                    null,
+                    this.props.text
                 )
             )
-            // <strong>{this.props.user}: </strong>goes a tag
-
         );
     }
 });
@@ -12984,24 +12957,21 @@ var MessageList = _react2.default.createClass({
             height: '300px',
             overflowY: 'scroll'
         };
-        return (
-            //<div className='messages'>
+        return _react2.default.createElement(
+            'div',
+            { style: inlineStyles },
             _react2.default.createElement(
-                'div',
-                { style: inlineStyles },
-                _react2.default.createElement(
-                    'h2',
-                    null,
-                    ' Conversation: '
-                ),
-                this.props.messages.map(function (message, i) {
-                    return _react2.default.createElement(Message, {
-                        key: i,
-                        user: message.user,
-                        text: message.text
-                    });
-                })
-            )
+                'h2',
+                null,
+                ' Conversation: '
+            ),
+            this.props.messages.map(function (message, i) {
+                return _react2.default.createElement(Message, {
+                    key: i,
+                    user: message.user,
+                    text: message.text
+                });
+            })
         );
     }
 });
@@ -13030,24 +13000,21 @@ var MessageForm = _react2.default.createClass({
         this.setState({ users: users, user: name });
     },
     render: function render() {
-        return (
-            // <div className='message_form'>
+        return _react2.default.createElement(
+            'div',
+            { className: 'msg-wgt-footer' },
             _react2.default.createElement(
-                'div',
-                { className: 'msg-wgt-footer' },
-                _react2.default.createElement(
-                    'h3',
-                    null,
-                    'Write New Message'
-                ),
-                _react2.default.createElement(
-                    'form',
-                    { onSubmit: this.handleSubmit },
-                    _react2.default.createElement('input', {
-                        onChange: this.changeHandler,
-                        value: this.state.text
-                    })
-                )
+                'h3',
+                null,
+                'Write New Message'
+            ),
+            _react2.default.createElement(
+                'form',
+                { onSubmit: this.handleSubmit },
+                _react2.default.createElement('input', {
+                    onChange: this.changeHandler,
+                    value: this.state.text
+                })
             )
         );
     }
@@ -13062,14 +13029,12 @@ var ChatApp = _react2.default.createClass({
     componentDidMount: function componentDidMount() {
         var _this = this;
 
-        //console.log('hi')
         socket.on('init', this._initialize);
         socket.on('send:message', function (d) {
             _this._messageRecieve(d);
         });
         socket.on('user:join', this._userJoined);
         socket.on('user:left', this._userLeft);
-        // socket.on('change:name', this._userChangedName);
     },
     _initialize: function _initialize(data) {
         var users = data.users,
@@ -13078,7 +13043,6 @@ var ChatApp = _react2.default.createClass({
         this.setState({ users: users, user: name });
     },
     _messageRecieve: function _messageRecieve(message) {
-        //console.log('got a message');
         var messages = this.state.messages;
 
         console.log(message);
@@ -13143,9 +13107,8 @@ var ChatApp = _react2.default.createClass({
                     messages: this.state.messages
                 }),
                 _react2.default.createElement(MessageForm, {
-                    onMessageSubmit: this.handleMessageSubmit
-                    //onBotMessage={this.handleMessageSubmit}
-                    , user: 'Mir'
+                    onMessageSubmit: this.handleMessageSubmit,
+                    user: 'Mir'
                     //user={this.state.user}
                 })
             )
@@ -13175,6 +13138,16 @@ var Chatroom = exports.Chatroom = function (_React$Component) {
 
     return Chatroom;
 }(_react2.default.Component);
+
+// FB.getLoginStatus((response) => {
+//   if (response.status == 'connected') {
+//   socket.emit('new number', {
+//   'facebook_user_token':
+//   response.authResponse.accessToken,
+//   'number': random,
+//   });
+//   }
+// });
 
 /***/ }),
 /* 104 */

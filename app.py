@@ -40,6 +40,7 @@ def on_disconnect():
     
 @socketio.on('send:message')
 def send_message(data):
+    socketio.emit('send:message', data, broadcast=True, include_self=False);
     # print data;
     # print data["text"];
     if(data["text"].startswith("!!")):
@@ -61,10 +62,11 @@ def send_message(data):
           #botResponse="bananas are curved because they grow towards the sun";
         elif(data["text"].startswith("!!")):
             server_data={"text":"Sorry! don't know this command, try !!help", "user":"chatbot"};
+        socketio.emit('send:message', server_data, broadcast=True)
           #botResponse="Sorry! don't know this command, try !!help";
     #server_data={"text":"hello" + data["user"], "user":"chatbot"};
-    socketio.emit('send:message', server_data, broadcast=True)
-    socketio.emit('send:message', data, broadcast=True, include_self=False);
+    # socketio.emit('send:message', server_data, broadcast=True)
+    # socketio.emit('send:message', data, broadcast=True, include_self=False);
  
     
 # @socketio.on('dbconnect')
