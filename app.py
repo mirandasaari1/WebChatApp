@@ -41,7 +41,7 @@ def on_disconnect():
 @socketio.on('send:message')
 def send_message(data):
     socketio.emit('send:message', data, broadcast=True, include_self=False);
-    print("Y" * 50)
+    # print("Y" * 50)
     # print data;
     # print data["text"];
     if(data["text"].startswith("!!")):
