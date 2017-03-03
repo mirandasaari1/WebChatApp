@@ -47,7 +47,6 @@ var Message = React.createClass({
 //and MessageList
 var MessageList = React.createClass({
   render() {
-    //added for css
     var inlineStyles = {
       height: '300px',
       overflowY: 'scroll'
@@ -70,6 +69,7 @@ var MessageList = React.createClass({
       );
   }
 });
+
 //messageForm
 var MessageForm = React.createClass({
 
@@ -196,8 +196,6 @@ var ChatApp = React.createClass({
       );
   }
 });
-
-
 
 export class Chatroom extends React.Component{
   render(){

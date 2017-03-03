@@ -12952,7 +12952,6 @@ var Message = _react2.default.createClass({
 var MessageList = _react2.default.createClass({
     displayName: 'MessageList',
     render: function render() {
-        //added for css
         var inlineStyles = {
             height: '300px',
             overflowY: 'scroll'
@@ -12975,6 +12974,7 @@ var MessageList = _react2.default.createClass({
         );
     }
 });
+
 //messageForm
 var MessageForm = _react2.default.createClass({
     displayName: 'MessageForm',
