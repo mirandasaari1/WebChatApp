@@ -31,18 +31,45 @@ var UsersList = React.createClass({
 //Message 
 var Message = React.createClass({
   render() {
+    var message=this.props.text;
+    var message1="";
+    if(message.toLowerCase().includes("http://") || message.toLowerCase().includes("https://")){
+      if(message.toLowerCase().includes(".jpg")){
+        console.log("jpg");
+        console.log(message);
+        message1=<img src={message} width="200px"/>;
+      }
+      else if(message.toLowerCase().includes(".jpeg")){
+        console.log("jpeg");
+        message1=<img src={message} width="200px"/>;
+      }
+      else if(message.toLowerCase().includes(".png")){
+        console.log("png");
+        message1=<img src={message} width="200px"/>;
+      }
+      else if(message.toLowerCase().includes(".gif")){
+        console.log("gif");
+        message1=<img src={message} width="200px"/>;
+      }
+      else{
+        message1=<a href={message}>{message}</a>;
+      }
+    }
+    else{
+      message1=<p>{message}</p>;
+    }
       return (
            <div className="msg-row-container">
             <div className="msg-row">
             <span className="user-label">
             <a href="#" className="chat-username">{this.props.user}</a>
               </span><br/>
-              <span>{this.props.text}</span>  
+              <div>{message1}</div>  
               </div>
           </div>
       );
-  }
-})
+    }
+});
 
 //and MessageList
 var MessageList = React.createClass({

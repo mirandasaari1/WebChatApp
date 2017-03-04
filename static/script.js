@@ -12922,6 +12922,36 @@ var UsersList = _react2.default.createClass({
 var Message = _react2.default.createClass({
     displayName: 'Message',
     render: function render() {
+        var message = this.props.text;
+        var message1 = "";
+        if (message.toLowerCase().includes("http://") || message.toLowerCase().includes("https://")) {
+            if (message.toLowerCase().includes(".jpg")) {
+                console.log("jpg");
+                console.log(message);
+                message1 = _react2.default.createElement('img', { src: message, width: '200px' });
+            } else if (message.toLowerCase().includes(".jpeg")) {
+                console.log("jpeg");
+                message1 = _react2.default.createElement('img', { src: message, width: '200px' });
+            } else if (message.toLowerCase().includes(".png")) {
+                console.log("png");
+                message1 = _react2.default.createElement('img', { src: message, width: '200px' });
+            } else if (message.toLowerCase().includes(".gif")) {
+                console.log("gif");
+                message1 = _react2.default.createElement('img', { src: message, width: '200px' });
+            } else {
+                message1 = _react2.default.createElement(
+                    'a',
+                    { href: message },
+                    message
+                );
+            }
+        } else {
+            message1 = _react2.default.createElement(
+                'p',
+                null,
+                message
+            );
+        }
         return _react2.default.createElement(
             'div',
             { className: 'msg-row-container' },
@@ -12939,9 +12969,9 @@ var Message = _react2.default.createClass({
                 ),
                 _react2.default.createElement('br', null),
                 _react2.default.createElement(
-                    'span',
+                    'div',
                     null,
-                    this.props.text
+                    message1
                 )
             )
         );
