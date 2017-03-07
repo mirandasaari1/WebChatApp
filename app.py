@@ -38,11 +38,8 @@ def hello():
 #wraps the app
 @socketio.on('connect')
 def on_connect():
-    print 'Someone connected!'
+    #print 'Someone connected!'
     socketio.emit('user:join', 'Mir')
-#  flask_socketio.emit('update', {
-#  'data': 'Got your connection!'
-#  })
 
 @socketio.on('disconnect')
 def on_disconnect():
@@ -72,26 +69,26 @@ def send_message(data):
         socketio.emit('send:message', server_data, broadcast=True)
     #reads user phone number and text
     elif(data["text"].startswith("#")):
-            message_body=data["text"][12:]
-            number=data["text"][1:11]
-            server_data={"text":"I sent your message!", "user":"chatbot"};
-            socketio.emit('send:message', server_data, broadcast=True)
-    api_auth=requests.auth.HTTPBasicAuth(
-        'ACf5b90a591a358475b17c29aa99d3f581',
-        'e85e42238ad5d0c6ea1d5b9cca398411'
-    )
-    api_data={
-        'From':'+19717173469',
-        'To': '+1' + number,
-        'Body': message_body
-        
-    }
-    response = requests.post(
-        'https://api.twilio.com/2010-04-01/Accounts/ACf5b90a591a358475b17c29aa99d3f581/Messages.json',
-        auth = api_auth,
-        data = api_data
-    )
-    print response.text
+        message_body=data["text"][12:]
+        number=data["text"][1:11]
+        server_data={"text":"I sent your message!", "user":"chatbot"};
+        socketio.emit('send:message', server_data, broadcast=True)
+        api_auth=requests.auth.HTTPBasicAuth(
+            'ACf5b90a591a358475b17c29aa99d3f581',
+            'e85e42238ad5d0c6ea1d5b9cca398411'
+        )
+        api_data={
+            'From':'+19717173469',
+            'To': '+1' + number,
+            'Body': message_body
+            
+        }
+        response = requests.post(
+            'https://api.twilio.com/2010-04-01/Accounts/ACf5b90a591a358475b17c29aa99d3f581/Messages.json',
+            auth = api_auth,
+            data = api_data
+        )
+        print response.text
     
 def get_chatbot_response(data):
     if(data.startswith("!!")):
@@ -117,13 +114,14 @@ def get_chatbot_response(data):
 # def sned_database(data):
 #     socketio.emit('dbconnect', data)
     
-#if __name__ == '__main__': # __name__!
-socketio.run(
- app,
- host=os.getenv('IP', '0.0.0.0'),
- port=int(os.getenv('PORT', 8080)),
- debug=True
-)
+if __name__ == '__main__': # __name__!
+    socketio.run(
+     app,
+     host=os.getenv('IP', '0.0.0.0'),
+     port=int(os.getenv('PORT', 8080)),
+     debug=True
+    )
+
 
 # class User(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)

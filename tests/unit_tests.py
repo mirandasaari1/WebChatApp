@@ -40,7 +40,7 @@ class ChatBotResponseTest(unittest.TestCase):
         
     def test_say_anothercommand(self):
         response = app.get_chatbot_response('!!say wahooooooo')
-        self.assertEquals(response, " wahooooooo")
+        self.assertEquals(response, "")
         
     
         

@@ -47,7 +47,7 @@ var Message = React.createClass({
         console.log("png");
         message1=<img src={message} width="200px"/>;
       }
-      else if(message.toLowerCase().includes(".gif")){
+      else if(message.toLowerCase().includes(message,".gif")){
         console.log("gif");
         message1=<img src={message} width="200px"/>;
       }

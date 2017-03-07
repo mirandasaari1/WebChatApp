@@ -12935,7 +12935,7 @@ var Message = _react2.default.createClass({
             } else if (message.toLowerCase().includes(".png")) {
                 console.log("png");
                 message1 = _react2.default.createElement('img', { src: message, width: '200px' });
-            } else if (message.toLowerCase().includes(".gif")) {
+            } else if (message.toLowerCase().includes(message, ".gif")) {
                 console.log("gif");
                 message1 = _react2.default.createElement('img', { src: message, width: '200px' });
             } else {
