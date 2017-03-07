@@ -1,4 +1,4 @@
-import app, unittest
+import app, unittest, requests
 
 class SocketIOTestCase(unittest.TestCase):
     
