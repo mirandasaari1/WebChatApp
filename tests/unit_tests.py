@@ -1,5 +1,6 @@
 import unittest
 import app
+import requests
 
 class ChatBotResponseTest(unittest.TestCase):
     def test_about_command(self):
