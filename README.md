@@ -1,14 +1,22 @@
-# project2-h2-msaari-csumb.edu
-theme is explained in readme file:
-I did not change my theme much, still went with the Oregon home vibes base. My chatbot can now text so that's
-pretty cool...
-how theme is implemented is explained in readme file:
-Theme is seen in the background rain drop image. Chatbot's personality is seen through it's two unique
-commands "!!joke" "!!funfact"....
-acknowledgement of known problems, if they exist, in readme file:
-No known problems from H2, same ones from H1 though. user connects and disconnects a lot....
-description of how to improve in readme file:
-Would of liked to get authentication done, but ended up being to much of a struggle. Persistence still has not been
-utilized although the models exists it is not implemented...
-documentation of improvements is in readme file, OR acknowledgement of no improvements and opt-out:
-There were no improvements made, just chat bot commands a little better. Would of liked to, but its okay!...
+# Disney Webchat App
+### Developed by: Miranda Saari
+
+##### Log in with Google
+##### Log in with Facebook
+##### Chat with your friends
+##### Enter commands to chat with bot
+
+![alt text](http://res.cloudinary.com/dsh22upxw/image/upload/c_scale,w_750/v1507144438/Android%20project/Android%20Project/1.png)
+![alt text](http://res.cloudinary.com/dsh22upxw/image/upload/c_scale,w_750/v1507144674/Android%20project/Android%20Project/2.png)
+
+
+#### Future Work...
++ Improving UI
++ Fixing the social login, one does not work properly
+
+## Technologies
++ Facebook social login
++ Google social login
++ flask
++ socketio
+
